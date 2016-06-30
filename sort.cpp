@@ -31,6 +31,23 @@ void InsertSort(int arr[], int len){
 	}
 }
 
+int Partition(int arr[], int low, int high){
+	int temp=arr[low];
+	while(low<high){
+		while(low<high && arr[high]>=temp) high--;
+		arr[low]=arr[high];
+		while(low<high && arr[low]<=temp) low++;
+		arr[high]=arr[low];
+	}
+	arr[low]=temp;
+	return low;
+}
+void QSort(int arr[],int low, int high){
+	if(low>=high) return;
+	int pivot=Partition(arr,low,high);
+	QSort(arr,low, pivot-1);
+	QSort(arr,pivot+1,high);
+}
 
 void print(int arr[], int len){
 	for(int i=0;i<len;++i)
@@ -44,7 +61,8 @@ int main(){
 		for(int i=0;i<length;++i)
 			cin>>array[i];
 		//BubbleSort(array,length);
-		InsertSort(array,length);
+		//InsertSort(array,length);
+		QSort(array,0,length-1);
 		print(array,length);
 	}
 	
