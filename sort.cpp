@@ -79,6 +79,41 @@ void MergeSort(int arr[], int len){
 
 	delete[] aux;
 }
+
+// template MergeSort
+
+template <class type>
+void MergeSort2(type arr[], int length){
+	type* aux=new type[length];
+	MergeSort2<type>(arr,aux,0,length-1);
+	delete[] aux;
+}
+
+template <class type>
+void MergeSort2(type arr[], type aux[], int low,  int high){
+	if (low>=high) return;
+	int mid=(low+high)/2;
+	int left=low,right=mid+1;
+	MergeSort2(arr,aux,low,mid);
+	MergeSort2(arr,aux,mid+1,high);
+	for(int i=low;i<=high;++i) aux[i]=arr[i];
+	while(low<=high){
+		if(left>mid) arr[low++]=aux[right++];
+		else if (right>high) arr[low++]=aux[left++];
+		else if (aux[left]<aux[right]) arr[low++]=aux[left++];
+		else arr[low++]=aux[right++];
+	}
+}
+
+// template show array
+template <class type>
+void show(type arr[], int len){
+	for(int i=0;i<len;++i){
+		cout<<arr[i]<<" ";
+	}
+	cout<<endl;
+}
+
 // print array
 void print(int arr[], int len){
 	for(int i=0;i<len;++i)
